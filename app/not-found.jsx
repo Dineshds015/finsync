@@ -11,7 +11,7 @@ const NotFound = () => {
                 Oops! The page you &apos;re looking for dresn&apos;t exist or has been moved.
             </p>
             <Link href="/">
-                <Button>RReturn Home</Button>
+                <Button>Return Home</Button>
             </Link>
         </div>
     )
