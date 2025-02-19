@@ -14,7 +14,7 @@ import useFetch from '@/hooks/use-fetch';
 import { format } from 'date-fns';
 import { ChevronDown, ChevronUp, Clock, MoreHorizontal, RefreshCcw, RefreshCw, Search, Trash, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { BarLoader } from 'react-spinners';
 import { toast } from 'sonner';
 
@@ -104,7 +104,9 @@ const TransactionTable = ({ transactions }) => {
     };
 
     const handleSelectAll = (id) => {
-        current.length === filteredAndSortedTransactions.length ? [] : filteredAndSortedTransactions.map((t) => t.id)
+        setSelectedIds((current) =>
+            current.length === filteredAndSortedTransactions.length ? [] : filteredAndSortedTransactions.map((t) => t.id)
+        )
     };
 
     const handleBulkDelete = async () => {
@@ -120,7 +122,7 @@ const TransactionTable = ({ transactions }) => {
         if (deleted && !deleteLoading) {
             toast.error("Transactions deleted successfully");
         }
-    }, [deleted.deleteLoading]);
+    }, [deleted, deleteLoading]);
 
     const handleClearFilters = () => {
         setSearchTerm("");
@@ -223,7 +225,7 @@ const TransactionTable = ({ transactions }) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {filteredAndSortedTransactions === 0 ? (
+                        {filteredAndSortedTransactions.length === 0 ? (
                             <TableRow>
                                 <TableCell colSpan={7} className="text-center text-muted-foreground">
                                     No Transactions Found
@@ -279,11 +281,11 @@ const TransactionTable = ({ transactions }) => {
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent>
-                                                <DropdownMenuLabel
-                                                    onClick={() => Router.push(`/transaction/create?edit=${transaction.id}`)}
+                                                <DropdownMenuItem
+                                                    onClick={() => router.push(`/transaction/create?edit=${transaction.id}`)}
                                                 >
                                                     Edit
-                                                </DropdownMenuLabel>
+                                                </DropdownMenuItem>
                                                 <DropdownMenuSeparator />
                                                 <DropdownMenuItem className="text-destructive"
                                                 // onClick={() => deleteFn([transaction.id])}
