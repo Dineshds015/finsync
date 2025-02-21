@@ -12,13 +12,15 @@ import { Switch } from '@/components/ui/switch';
 import useFetch from '@/hooks/use-fetch';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
-import { Calendar1Icon, CalendarIcon } from 'lucide-react';
-import { useRouter } from 'next/router';
+import { CalendarIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import ReciptScanner from './recipt-scanner';
 
 const AddTransactionForm = ({ accounts, categories }) => {
-    const router = useRouter
+    const router = useRouter();
     const { register, setValue, handleSubmit, formState: { errors }, watch, getValues, reset } = useForm({
         resolver: zodResolver(transactionSchema),
         defaultValues: {
@@ -41,10 +43,13 @@ const AddTransactionForm = ({ accounts, categories }) => {
     const date = watch("date");
 
     const onSubmit = async (data) => {
+
+        console.log("onSubmit Clicked...");
         const formData = {
             ...data,
             amount: parseFloat(data.amount),
         };
+
         transactionFn(formData);
     };
 
@@ -52,16 +57,33 @@ const AddTransactionForm = ({ accounts, categories }) => {
         if (transactionResult?.success && !transactionLoading) {
             toast.success("Transaction created successfully");
             reset();
-            router.push(`/account/${transactionResult.data.accountId}`)
+            router.push(`/account/${transactionResult.data.accountId}`);
         }
+
     }, [transactionResult, transactionLoading]);
 
     const filteredCategories = categories.filter(
         (category) => category.type === type
     );
+
+    const handleScanComplete = (scannedData) => {
+        if (scannedData) {
+            setValue("amount", scannedData.amount.toString());
+            setValue("date", new Date(scannedData.date));
+            if (scannedData.description) {
+                setValue("description", scannedData.description);
+            }
+            if (scannedData.category) {
+                setValue("category", scannedData.category);
+            }
+        }
+
+    };
+
     return (
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {/* AI Recipt Scanner */}
+            <ReciptScanner onScanComplete={handleScanComplete} />
 
             <div className="space-y-2">
                 <label htmlFor="" className="text-sm font-medium">Type</label>
@@ -75,7 +97,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
                     </SelectContent>
                 </Select>
 
-                {errors.type && (<p className="text-sm text-red-500">{errors.type.message}</p>)}
+                {errors.defaultValue && (<p className="text-sm text-red-500">{errors.defaultValue.message}</p>)}
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
@@ -88,11 +110,11 @@ const AddTransactionForm = ({ accounts, categories }) => {
                         {...register("amount")}
                     />
 
-                    {errors.type && (<p className="text-sm text-red-500">{errors.amount.message}</p>)}
+                    {errors.amount && (<p className="text-sm text-red-500">{errors.amount.message}</p>)}
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="" className="text-sm font-medium">Account</label>
+                    <label className="text-sm font-medium">Account</label>
                     <Select onValueChange={(value) => setValue("accountId", value)} defaultValue={getValues("accountId")}>
                         <SelectTrigger>
                             <SelectValue placeholder="Select account" />
@@ -110,7 +132,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
                         </SelectContent>
                     </Select>
 
-                    {errors.accountId && (<p className="text-sm text-red-500">{errors.type.message}</p>)}
+                    {errors.accountId && (<p className="text-sm text-red-500">{errors.accountId.message}</p>)}
                 </div>
             </div>
 
@@ -130,7 +152,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
                     </SelectContent>
                 </Select>
 
-                {errors.category && (<p className="text-sm text-red-500">{errors.type.message}</p>)}
+                {errors.category && (<p className="text-sm text-red-500">{errors.category.message}</p>)}
             </div>
 
             <div className="space-y-2">
@@ -139,7 +161,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
                     <PopoverTrigger asChild>
                         <Button variant="outline" className="w-full pl-3 text-left font-normal">
                             {" "}
-                            {date ? format(date, "ppp") : <span>Pick a date</span>}
+                            {date ? format(date, "PPP") : <span>Pick a date</span>}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                     </PopoverTrigger>
@@ -193,7 +215,12 @@ const AddTransactionForm = ({ accounts, categories }) => {
             )}
 
             <div className="flex gap-4">
-                <Button type="button" variant="outline" className="w-full" onClick={() => router.back()}>
+                <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => router.back()}
+                >
                     Cancel
                 </Button>
                 <Button type="submit" className="w-full" disabled={transactionLoading}>Create Transaction</Button>

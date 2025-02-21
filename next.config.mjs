@@ -6,8 +6,14 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "randomuser.me",
             }
-        ]
-    }
+        ],
+    },
+
+    experimental: {
+        serverActions: {
+            bodySizeLimit: "5mb",
+        },
+    },
 };
 
 export default nextConfig;
