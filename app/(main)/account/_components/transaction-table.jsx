@@ -1,6 +1,6 @@
 "use client"
 
-import { bulkDeleteTransactions } from '@/actions/accounts';
+import { bulkDeleteTransactions } from '@/actions/account';
 import { categoryColors } from '@/app/data/categories';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -232,7 +232,7 @@ const TransactionTable = ({ transactions }) => {
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            filteredAndSortedTransactions.map((transaction) => {
+                            filteredAndSortedTransactions.map((transaction) => (
                                 <TableRow key={transaction.id}>
                                     <TableCell>
                                         <Checkbox onCheckedChange={() => handleSelect(transaction.id)} checked={selectedIds.includes(transaction.id)} />
@@ -296,7 +296,7 @@ const TransactionTable = ({ transactions }) => {
                                         </DropdownMenu>
                                     </TableCell>
                                 </TableRow>
-                            })
+                            ))
                         )}
                     </TableBody>
                 </Table>

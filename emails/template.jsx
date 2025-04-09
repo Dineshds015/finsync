@@ -3,10 +3,11 @@ import * as React from "react";
 
 export default function EmailTemplate({
     userName = "Piyush",
-    type = "budget-alert",
-    data = {},
+    type = "monthly-report",
+    data = {}
 
 }) {
+    // console.log(userName, type, data);
     if (type === "monthly-report") {
         return (
             <Html>
@@ -65,6 +66,10 @@ export default function EmailTemplate({
                                 ))}
                             </Section>
                         )}
+                        <Text style={styles.footer}>
+                            Thank you for using FinSync. Keep tracking you finances for better
+                            financial health!
+                        </Text>
                     </Container>
                 </Body>
             </Html>
@@ -80,7 +85,7 @@ export default function EmailTemplate({
                         <Heading style={styles.title}>Budget Alert</Heading>
                         <Text style={styles.text}>Hello {userName},</Text>
                         <Text style={styles.text}>
-                            You&rsquo;ve used {data?.percentageUsed.toFixed(1)}% of your
+                            You&rsquo;ve used {(data?.percentageUsed ?? 0).toFixed(1)}% of your
                             monthly budget.
                         </Text>
                         <Section style={styles.statsContainer}>
@@ -103,7 +108,6 @@ export default function EmailTemplate({
         );
     }
 }
-
 const styles = {
     body: {
         backgroundColor: "f6f9fc",

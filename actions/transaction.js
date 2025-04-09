@@ -2,6 +2,7 @@
 
 import aj from "@/lib/arcjet";
 import { db } from "@/lib/prisma";
+import { request } from "@arcjet/next";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { TextCursor } from "lucide-react";
@@ -199,6 +200,7 @@ export async function getTransaction(id) {
 }
 
 export async function updateTransaction(id, data) {
+
     try {
         const { userId } = await auth();
         if (!userId) throw new Error("Unauthorized");

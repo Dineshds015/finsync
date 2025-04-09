@@ -1,12 +1,16 @@
-import { getUserAccounts } from '@/actions/dashboard'
+import { getUserAccounts } from '@/actions/dashboard';
 import { defaultCategories } from '@/app/data/categories';
-import React from 'react'
+import React from 'react';
 import AddTransactionForm from '../_components/transaction-form';
 import { getTransaction } from '@/actions/transaction';
 
 const AddTransactionPage = async ({ searchParams }) => {
     const accounts = await getUserAccounts();
+
+    // Correct: No need to await searchParams
     const editId = searchParams?.edit;
+
+    // console.log("SearchParams: ", editId);
 
     let initialData = null;
     if (editId) {
@@ -24,7 +28,7 @@ const AddTransactionPage = async ({ searchParams }) => {
                 initialData={initialData}
             />
         </div>
-    )
-}
+    );
+};
 
 export default AddTransactionPage;
