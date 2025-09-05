@@ -23,18 +23,50 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20">
+      {/* <section className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Everything you need to manage your finances</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {featuresData.map((feature, index) => (
               <Card key={index} className="p-6">
                 <CardContent className="space-y-4 pt-4">
-                  {feature.icon}
+                  {feature.image}
                   <h3 className="text-xl font-semibold">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.description}</p>
                 </CardContent>
               </Card>
+            ))}
+          </div>
+        </div>
+      </section> */}
+      <section id="demoLink" className="py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Everything you need to manage your finances
+          </h2>
+
+          <div className="space-y-16">
+            {featuresData.map((feature, index) => (
+              <div
+                key={index}
+                className="grid md:grid-cols-2 gap-10 items-center border rounded-2xl p-8"
+              >
+                {/* Left side (number, title, description) */}
+                <div className="space-y-4">
+                  <h3 className="text-5xl font-bold text-muted-foreground">
+                    {String(index + 1).padStart(2, "0")}
+                  </h3>
+                  <h4 className="text-2xl font-semibold">{feature.title}</h4>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </div>
+
+                {/* Right side (image with rounded border) */}
+                <div className="flex justify-center">
+                  <div className="rounded-2xl overflow-hidden shadow-lg border border-blue-500">
+                    {feature.image}
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>

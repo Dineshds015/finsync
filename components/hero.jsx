@@ -41,11 +41,22 @@ const HeroSection = () => {
                             Get Started
                         </Button>
                     </Link>
-                    <Link href="#demoLink">
-                        <Button size="lg" variant="outline" className="px-8">
-                            Demo Link
-                        </Button>
-                    </Link>
+                    <Button 
+                        size="lg" 
+                        variant="outline" 
+                        className="px-8"
+                        onClick={() => {
+                            const element = document.getElementById('demoLink');
+                            if (element) {
+                                element.scrollIntoView({ 
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        }}
+                    >
+                        Features
+                    </Button>
                 </div>
                 <div className="hero-image-wrapper">
                     <div ref={imageRef} className="hero-image">

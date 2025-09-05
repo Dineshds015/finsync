@@ -6,6 +6,13 @@ import {
     Globe,
     Zap,
 } from "lucide-react";
+import Image from "next/image";
+import dashboard from "@/public/1_dashboard.png";
+import createTransaction from "@/public/2_createTransaction.png";
+import chart from "@/public/3_chart.png";
+import receipt from "@/public/4_receipt.png";
+import listing from "@/public/5_list.png";
+import banner from '@/public/banner.jpeg';
 
 // Stats Data
 export const statsData = [
@@ -28,40 +35,68 @@ export const statsData = [
 ];
 
 // Features Data
+// export const featuresData = [
+//     {
+//         icon: <BarChart3 className="h-8 w-8 text-blue-600" />,
+//         title: "Advanced Analytics",
+//         description:
+//             "Get detailed insights into your spending patterns with AI-powered analytics",
+//     },
+//     {
+//         icon: <Receipt className="h-8 w-8 text-blue-600" />,
+//         title: "Smart Receipt Scanner",
+//         description:
+//             "Extract data automatically from receipts using advanced AI technology",
+//     },
+//     {
+//         icon: <PieChart className="h-8 w-8 text-blue-600" />,
+//         title: "Budget Planning",
+//         description: "Create and manage budgets with intelligent recommendations",
+//     },
+//     {
+//         icon: <CreditCard className="h-8 w-8 text-blue-600" />,
+//         title: "Multi-Account Support",
+//         description: "Manage multiple accounts and credit cards in one place",
+//     },
+//     {
+//         icon: <Globe className="h-8 w-8 text-blue-600" />,
+//         title: "Multi-Currency",
+//         description: "Support for multiple currencies with real-time conversion",
+//     },
+//     {
+//         icon: <Zap className="h-8 w-8 text-blue-600" />,
+//         title: "Automated Insights",
+//         description: "Get automated financial insights and recommendations",
+//     },
+// ];
 export const featuresData = [
-    {
-        icon: <BarChart3 className="h-8 w-8 text-blue-600" />,
-        title: "Advanced Analytics",
-        description:
-            "Get detailed insights into your spending patterns with AI-powered analytics",
-    },
-    {
-        icon: <Receipt className="h-8 w-8 text-blue-600" />,
-        title: "Smart Receipt Scanner",
-        description:
-            "Extract data automatically from receipts using advanced AI technology",
-    },
-    {
-        icon: <PieChart className="h-8 w-8 text-blue-600" />,
-        title: "Budget Planning",
-        description: "Create and manage budgets with intelligent recommendations",
-    },
-    {
-        icon: <CreditCard className="h-8 w-8 text-blue-600" />,
-        title: "Multi-Account Support",
-        description: "Manage multiple accounts and credit cards in one place",
-    },
-    {
-        icon: <Globe className="h-8 w-8 text-blue-600" />,
-        title: "Multi-Currency",
-        description: "Support for multiple currencies with real-time conversion",
-    },
-    {
-        icon: <Zap className="h-8 w-8 text-blue-600" />,
-        title: "Automated Insights",
-        description: "Get automated financial insights and recommendations",
-    },
+  {
+    image: <Image src={dashboard} alt="Advanced Analytics"/>,
+    title: "Advanced Analytics",
+    description: "Get detailed insights into your spending patterns with AI-powered analytics",
+  },
+  {
+    image: <Image src={createTransaction} alt="Multi-Account Support"/>,
+    title: "Multi-Account Support",
+    description: "Manage multiple accounts and credit cards in one place",
+  },
+  {
+    image: <Image src={chart} alt="Expense Visualization"/>,
+    title: "Expense Visualization",
+    description: "Understand spending patterns through easy-to-read visual reports",
+  },
+  {
+    image: <Image src={receipt} alt="Smart Receipt Scanner"/>,
+    title: "Smart Receipt Scanner",
+    description:"Extract data automatically from receipts using advanced AI technology",
+  },
+  {
+    image: <Image src={listing} alt="Spend Monitor"/>,
+    title: "Spend Monitor",
+    description: "Stay updated with detailed expense listings and instant email alerts",
+  },
 ];
+
 
 // How It Works Data
 export const howItWorksData = [
