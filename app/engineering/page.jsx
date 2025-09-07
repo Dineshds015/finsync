@@ -41,39 +41,32 @@ export default function EngineeringPage() {
 
   const features = [
     {
+      title: "Multi-Account Support",
+      description: "Manage multiple accounts and credit cards in one place",
+      imageLight: "/engineering/light_multipleAccount.svg",
+      imageDark: "/engineering/dark_multipleAccount.svg",
+    },
+    {
+      title: "Inngest Background Jobs",
+      description: "Inngest is used to handle background jobs such as email notifications and async processing.",
+      imageLight: "/engineering/light_inngest.svg",
+      imageDark: "/engineering/dark_inngest.svg",
+    },
+    {
+      title: "Rate limiting",
+      description: "Rate limiting is used to prevent abuse of the application, here used for continuously budget changes.",
+      imageLight: "/engineering/light_ratelimiting.svg",
+      imageDark: "/engineering/dark_ratelimiting.svg",
+    },
+    {
       title: "Receipt Scanner",
-      description: "AI-powered receipt scanning using computer vision to automatically extract transaction details, amounts, and categories from uploaded receipt images.",
-      icon: <Camera className="w-8 h-8 text-blue-500" />,
-      image: "/4_receipt.png",
-      implementation: "Built with Tesseract.js for OCR and custom image processing algorithms to detect and extract text from receipt images."
+      description: "LLM (Mistral Model) Integration for receipt scanning.",
+      imageLight: "/engineering/light_receipt.svg",
+      imageDark: "/engineering/dark_receipt.svg",
     },
     {
-      title: "Real-time Budget Tracking",
-      description: "Live budget monitoring with instant updates when transactions are added, providing immediate feedback on spending against budget limits.",
-      icon: <TrendingUp className="w-8 h-8 text-green-500" />,
-      image: "/1_dashboard.png",
-      implementation: "Uses React state management and real-time database updates to provide instant budget calculations and progress indicators."
-    },
-    {
-      title: "Smart Categorization",
-      description: "Automatic transaction categorization using machine learning algorithms that learn from user behavior and improve over time.",
-      icon: <Brain className="w-8 h-8 text-purple-500" />,
-      image: "/2_createTransaction.png",
-      implementation: "Implements fuzzy matching algorithms and user preference learning to automatically categorize transactions based on merchant names and amounts."
-    },
-    {
-      title: "Email Notifications",
-      description: "Automated email notifications for budget alerts, spending summaries, and important financial milestones.",
-      icon: <Mail className="w-8 h-8 text-orange-500" />,
-      image: "/5_list.png",
-      implementation: "Uses Inngest for background job processing and Resend for reliable email delivery with customizable templates."
-    },
-    {
-      title: "Advanced Search",
-      description: "Powerful search functionality with fuzzy matching, date ranges, and category filters to quickly find specific transactions.",
-      icon: <Search className="w-8 h-8 text-red-500" />,
-      image: "/3_chart.png",
-      implementation: "PostgreSQL full-text search with custom ranking algorithms and intelligent query parsing for natural language searches."
+      title: "Light / Dark Mode & Fuzzy Searching",
+      description: "This is an easy one, I just used CSS variables and changed their values depending on whether there is a 'dark' class in the html tag. Then I simply used basic DOM manipulation to toggle this class in html tag and saved the theme in local storage, also implementaed Fuzzy searching is implemented using PostgreSQL full-text search.",
     }
   ];
 
@@ -102,12 +95,12 @@ export default function EngineeringPage() {
                 Back to Home
               </Button>
             </Link>
-            <Link href="https://github.com/your-repo/finsync" target="_blank">
+            {/* <Link href="https://github.com/your-repo/finsync" target="_blank">
               <Button size="lg">
                 <GitBranch className="w-4 h-4 mr-2" />
                 View Source Code
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
@@ -182,11 +175,9 @@ export default function EngineeringPage() {
         </div>
       </section>
 
-      
-
       {/* Database Design */}
       <section className="py-20 px-4 bg-muted">
-      <div className="container mx-auto max-w-5xl">
+        <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl font-bold mb-8">Database Design</h2>
 
           <div className="rounded-lg border bg-background p-4 md:p-8">
@@ -209,7 +200,7 @@ export default function EngineeringPage() {
               className="hidden dark:block w-full h-auto"
             />
           </div>
-        </div>
+                  </div>
       </section>
 
       {/* Part Flow Diagram */}
@@ -240,9 +231,49 @@ export default function EngineeringPage() {
         </div>
       </section>
 
+      {/* Action section */}
+      <section className="py-20 px-4 bg-muted">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-8">There are <strike className="text-primary">APIs</strike> Actions!</h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            Remix (framework of this web application) provides server actions for data mutations (backend). So, this way every route which has an 'action' also becomes an API route. Sounds cool, here is an example:
+          </p>
+
+          <p className="text-lg text-muted-foreground mb-6">
+          It takes you back to the traditional way of dealing with mutations.
+          Similarly, for 'GET' requests, there is a loader function like action which executes before the page gets loaded.
+          </p>
+
+          <div className="bg-muted p-6 rounded-xl flex justify-center">
+            {/* Light Mode Image */}
+            <Image
+              src="/engineering/light_action.png"
+              alt="Light Mode"
+              width={1600}
+              height={900}
+              priority
+              className="w-full h-auto dark:hidden rounded-2xl shadow-2xl ring-2 ring-gray-200 dark:ring-gray-700"
+            />
+
+            {/* Dark Mode Image */}
+            <Image
+              src="/engineering/dark_action.png"
+              alt="Dark Mode"
+              width={1600}
+              height={900}
+              priority
+              className="w-full h-auto hidden dark:block rounded-2xl shadow-2xl ring-2 ring-gray-200 dark:ring-gray-700"
+            />
+          </div>
+
+          
+        </div>
+      </section>
+
+
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-muted">
+      <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-8">Let's talk about features</h2>
           <p className="text-lg text-muted-foreground mb-12">
@@ -257,31 +288,35 @@ export default function EngineeringPage() {
                     {String(index + 1).padStart(2, '0')}
                   </div>
                   <div className="flex items-center space-x-3">
-                    {feature.icon}
                     <h3 className="text-2xl font-semibold">{feature.title}</h3>
                   </div>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-8 items-start">
-                  <div className="space-y-4">
-                    <p className="text-muted-foreground text-lg">{feature.description}</p>
-                    <div className="bg-muted p-4 rounded-lg">
-                      <p className="text-sm font-medium mb-2">Implementation:</p>
-                      <p className="text-sm text-muted-foreground">{feature.implementation}</p>
+                <div className="space-y-6">
+                  {/* Description above */}
+                  <p className="text-muted-foreground text-lg text-center max-w-3xl mx-auto">
+                    {feature.description}
+                  </p>
+
+                  {/* Centered smaller diagram/image - only show if images exist */}
+                  {feature.imageLight && feature.imageDark && (
+                    <div className="relative mx-auto h-[28rem] w-full max-w-4xl rounded-xl overflow-hidden border shadow-sm">
+                      {/* Light image */}
+                      <Image
+                        src={feature.imageLight}
+                        alt={`${feature.title} (light)`}
+                        fill
+                        className="object-contain bg-background p-4 block dark:hidden"
+                      />
+                      {/* Dark image */}
+                      <Image
+                        src={feature.imageDark}
+                        alt={`${feature.title} (dark)`}
+                        fill
+                        className="object-contain bg-background p-4 hidden dark:block"
+                      />
                     </div>
-                  </div>
-                  <div className="relative h-64 rounded-2xl overflow-hidden shadow-lg border">
-                    <Image
-                      src={feature.image}
-                      alt={feature.title}
-                      fill
-                      className="object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -290,126 +325,51 @@ export default function EngineeringPage() {
       </section>
 
       {/* Tech Stack */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold mb-8">Tech Stack</h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Built completely in <strong>TypeScript</strong>.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Globe className="w-5 h-5" />
-                  <span>Next.js 14</span>
-                </h3>
-                <p className="text-muted-foreground">as the full stack framework. Why? Amazing developer experience and performance.</p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Zap className="w-5 h-5" />
-                  <span>Tailwind CSS & Shadcn UI</span>
-                </h3>
-                <p className="text-muted-foreground">for styling. Why? Easy and quick to use.</p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Database className="w-5 h-5" />
-                  <span>Prisma</span>
-                </h3>
-                <p className="text-muted-foreground">as ORM. Why? To talk to SQL like NoSQL.</p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Server className="w-5 h-5" />
-                  <span>PostgreSQL</span>
-                </h3>
-                <p className="text-muted-foreground">as primary database. Why? SQL because I don't like the schema flexibility which a NoSQL database gives. Moreover, it gives the feature of fuzzy searching out of the box.</p>
-              </div>
-            </div>
-            
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Shield className="w-5 h-5" />
-                  <span>Clerk</span>
-                </h3>
-                <p className="text-muted-foreground">for authentication. Why? Secure and easy to implement user management.</p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Mail className="w-5 h-5" />
-                  <span>Inngest</span>
-                </h3>
-                <p className="text-muted-foreground">for background jobs. Why? To handle email notifications and async processing reliably.</p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Camera className="w-5 h-5" />
-                  <span>Tesseract.js</span>
-                </h3>
-                <p className="text-muted-foreground">for OCR. Why? To extract text from receipt images for automatic transaction entry.</p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold mb-3 flex items-center space-x-2">
-                  <Globe className="w-5 h-5" />
-                  <span>Vercel</span>
-                </h3>
-                <p className="text-muted-foreground">for deployment. Why? Seamless integration with Next.js and excellent performance.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Dark Mode Note */}
       <section className="py-20 px-4 bg-muted">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold mb-8">Bonus: Dark/Light mode</h2>
-          <p className="text-lg text-muted-foreground mb-6">
-            This is an easy one, I just used CSS variables and changed their values depending on whether there is a 'dark' class in the html tag. 
-            Then I simply used basic DOM manipulation to toggle this class in html tag and saved the theme in local storage.
+        <div className="container mx-auto max-w-2xl">
+          <h2 className="text-3xl font-bold mb-8 text-center">Tech Stack</h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Built completely in <strong className="text-primary">TypeScript</strong>.
           </p>
-          <div className="bg-muted p-6 rounded-lg">
-            <p className="text-sm font-mono">
-              {`// Theme toggle implementation
-const toggleTheme = () => {
-  const html = document.documentElement;
-  const isDark = html.classList.contains('dark');
-  html.classList.toggle('dark');
-  localStorage.setItem('theme', isDark ? 'light' : 'dark');
-};`}
-            </p>
-          </div>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Remix</strong> as the full stack framework. Why? Amazing developer experience and performance.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Tailwind CSS</strong> and <strong className="text-primary">Shadcn UI</strong> for styling. Why? Easy and quick to use.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Prisma</strong> as ORM. Why? To talk to SQL like NoSQL.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">PostgreSQL</strong> as primary database. Why? SQL because I don't like the schema flexibility which a NoSQL database gives. Moreover, it gives the feature of fuzzy searching out of the box.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Inngest</strong> for background jobs. Why? To handle background jobs such as email notifications and async processing.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Tesseract</strong> for receipt scanning. Why? To scan receipts and extract text from them.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">LLM (Mistral Model)</strong> for organizing data extraction from receipts.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Arcjet</strong> for rate limiting. Why? To prevent abuse of the application.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Google Gemini</strong> as a generative AI for AI insights.
+          </p>
+          <p className="text-lg text-muted-foreground mb-8">
+            <strong className="text-primary">Vercel</strong> for deployment. Why? To deploy the application.
+          </p>
         </div>
       </section>
 
       {/* Conclusion */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-8">Designed and built with ❤️ by</h2>
+          <h2 className="text-3xl font-bold mb-8">Designed and built with by</h2>
           <div className="space-y-4">
-            <p className="text-xl font-semibold">FinSync Team</p>
-            <div className="flex justify-center space-x-4">
-              <Link href="https://github.com/your-repo/finsync" target="_blank">
-                <Button variant="outline">
-                  <GitBranch className="w-4 h-4 mr-2" />
-                  GitHub
-                </Button>
-              </Link>
-              <Link href="/dashboard">
-                <Button>
-                  Try the Application
-                </Button>
-              </Link>
-            </div>
+            <p className="text-xl font-semibold">Dinesh :)</p>
           </div>
         </div>
       </section>
