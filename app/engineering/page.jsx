@@ -155,7 +155,7 @@ export default function EngineeringPage() {
           <div className="rounded-lg border bg-muted/40 p-4 md:p-8">
             {/* Light mode image */}
             <Image
-              src="./engineering/hldFinSync_lightmode.svg"
+              src="./engineering/light_hld.svg"
               alt="High-level diagram (light mode)"
               width={1600}
               height={900}
@@ -164,7 +164,7 @@ export default function EngineeringPage() {
             />
             {/* Dark mode image */}
             <Image
-              src="./engineering/hldFinSync_darkmode.svg"
+              src="./engineering/dark_hld.svg"
               alt="High-level diagram (dark mode)"
               width={1600}
               height={900}
